@@ -19,13 +19,13 @@ Route::get('/', function () {
 
 Route::prefix('clients')->group(function () {
 
-    Route::get('','ClientController@index')->name('clients.index');
-    Route::get('create', 'ClientController@create')->name('clients.create');
-    Route::post('store', 'ClientController@store')->name('clients.store');
-    Route::get('edit/{client}', 'ClientController@edit')->name('clients.edit');
-    Route::post('update/{client}', 'ClientController@update')->name('clients.update');
-    Route::post('delete/{client}', 'ClientController@destroy')->name('clients.destroy');
-    Route::get('show/{client}', 'ClientController@show')->name('clients.show');
+    Route::get('','ClientController@index')->name('clients.index')->middleware("auth");
+    Route::get('create', 'ClientController@create')->name('clients.create')->middleware("auth");
+    Route::post('store', 'ClientController@store')->name('clients.store')->middleware("auth");
+    Route::get('edit/{client}', 'ClientController@edit')->name('clients.edit')->middleware("auth");
+    Route::post('update/{client}', 'ClientController@update')->name('clients.update')->middleware("auth");
+    Route::post('delete/{client}', 'ClientController@destroy')->name('clients.destroy')->middleware("auth");
+    Route::get('show/{client}', 'ClientController@show')->name('clients.show')->middleware("auth");
 
 });
 
@@ -42,3 +42,7 @@ Route::prefix('company')->group(function () {
 
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
